@@ -9,6 +9,4 @@ public class Employee
     public DateTime EntryDate { get; set; }
     public Department Department { get; set; } = null!;
     public int DepartmentId { get; set; }
-
-
 }

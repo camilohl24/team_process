@@ -1,6 +1,6 @@
 ﻿namespace TeamProcess.API.Models;
 
-public class Attendance
+public class Attendance : IEntity
 {
     public int Id { get; set; }
     public Employee Employee { get; set; } = null!;

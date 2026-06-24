@@ -1,6 +1,6 @@
 ﻿namespace TeamProcess.API.Models;
 
-public class Department
+public class Department : IEntity
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

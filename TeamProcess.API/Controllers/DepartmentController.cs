@@ -33,6 +33,7 @@ public class DepartmentController : ControllerBase
     public async Task<IActionResult> Create([FromBody] DepartmentRequestDto dto)
     {
         var department = await _service.CreateAsync(dto);
+
         return CreatedAtAction(nameof(GetById), new { id = department.Id }, department);
     }
 

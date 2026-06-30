@@ -76,7 +76,7 @@ public class EmployeeService
         var updatedEmployee = await _context.Employees
             .Include(e => e.Department)
             .FirstOrDefaultAsync(e => e.Id == id);
-        return MapToDto(employee);
+        return MapToDto(updatedEmployee!);
     }
 
     private EmployeeResponseDto MapToDto(Employee employee)

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using TeamProcess.API.Data;
-using TeamProcess.API.Services;
+using TeamProcess.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddScoped<EntityValidator>();
-builder.Services.AddScoped<DepartmentService>();
-builder.Services.AddScoped<EmployeeService>();
-builder.Services.AddScoped<AttendanceService>();
+builder.Services.AddApplicationServices();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();

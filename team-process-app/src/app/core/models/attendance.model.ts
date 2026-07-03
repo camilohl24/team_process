@@ -5,8 +5,14 @@ export interface Attendance{
     status: AttendanceStatus
 }
 
+export interface AttendanceRequest{
+    employeeId: number
+    date: string
+    status: AttendanceStatus
+}
 export enum AttendanceStatus{
     Present = 0,
     Absent = 1,
     Late = 2
 }
+

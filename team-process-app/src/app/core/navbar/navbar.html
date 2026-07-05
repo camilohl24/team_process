@@ -1,31 +1,37 @@
 <nav class="w-64 h-screen bg-slate-900 flex flex-col">
-  <div class="p-4 border-b border-slate-700">
-    <span class="text-white font-medium">TeamProcess</span>
+  <div class="p-4 border-b border-slate-700 flex items-center gap-3">
+    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+      <lucide-icon [img]="users" size="16" class="text-white"></lucide-icon>
+    </div>
+    <div>
+      <p class="text-white font-medium text-sm">TeamProcess</p>
+      <p class="text-slate-400 text-xs">Panel de gestion</p>
+    </div>
   </div>
   <div class="flex-1 p-3 flex flex-col gap-1">
     <a
       routerLink="/dashboard"
       routerLinkActive="bg-indigo-600 text-white"
       class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
-      >Dashboard</a
+      ><lucide-icon [img]="layoutDashboard" size="18"></lucide-icon> Dashboard</a
     >
     <a
       routerLink="/employees"
       routerLinkActive="bg-indigo-600 text-white"
       class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
-      >Empleados</a
+      ><lucide-icon [img]="users" size="18"></lucide-icon> Empleados</a
     >
     <a
       routerLink="/departments"
       routerLinkActive="bg-indigo-600 text-white"
       class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
-      >Departamentos</a
+      ><lucide-icon [img]="building2" size="18"></lucide-icon> Departamentos</a
     >
     <a
       routerLink="/attendances"
       routerLinkActive="bg-indigo-600 text-white"
       class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
-      >Asistencia</a
+      ><lucide-icon [img]="calendarCheck" size="18"></lucide-icon> Asistencia</a
     >
   </div>
 

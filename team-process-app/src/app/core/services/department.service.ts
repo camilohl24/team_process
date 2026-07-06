@@ -4,27 +4,27 @@ import { Observable } from "rxjs";
 import { Department, DepartmentRequest } from "../models/department.model";
 
 @Injectable({
-    providedIn:'root'
+    providedIn: 'root'
 })
 
-export class DepartmentService{
+export class DepartmentService {
     private http = inject(HttpClient)
-    private apiUrl = 'http://localhost:5144/api/department';
+    private apiUrl = 'https://localhost:7227/api/department';
 
-    getDepartments(): Observable<Department[]>{
+    getDepartments(): Observable<Department[]> {
         return this.http.get<Department[]>(this.apiUrl);
     }
 
 
-    createDepartment(data: DepartmentRequest): Observable<Department>{
+    createDepartment(data: DepartmentRequest): Observable<Department> {
         return this.http.post<Department>(this.apiUrl, data);
     }
 
-    updateDepartment(id: number, data: DepartmentRequest): Observable<void>{
+    updateDepartment(id: number, data: DepartmentRequest): Observable<void> {
         return this.http.put<void>(`${this.apiUrl}/${id}`, data)
     }
 
-    deleteDepartment(id: number): Observable<void>{
+    deleteDepartment(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`)
     }
 }

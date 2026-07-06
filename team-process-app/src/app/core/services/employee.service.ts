@@ -4,27 +4,27 @@ import { Observable } from "rxjs";
 import { Employee, EmployeeRequest } from "../models/employee.model";
 
 @Injectable({
-    providedIn:'root'
+    providedIn: 'root'
 })
 
-export class EmployeeService{
+export class EmployeeService {
     private http = inject(HttpClient)
-    private apiUrl = 'http://localhost:5144/api/employee';
+    private apiUrl = 'https://localhost:7227/api/employee';
 
-    getEmployees(): Observable<Employee[]>{
+    getEmployees(): Observable<Employee[]> {
         return this.http.get<Employee[]>(this.apiUrl);
     }
 
 
-    createEmployee(data: EmployeeRequest): Observable<Employee>{
+    createEmployee(data: EmployeeRequest): Observable<Employee> {
         return this.http.post<Employee>(this.apiUrl, data);
     }
 
-    updateEmployee(id: number, data: EmployeeRequest): Observable<void>{
+    updateEmployee(id: number, data: EmployeeRequest): Observable<void> {
         return this.http.put<void>(`${this.apiUrl}/${id}`, data)
     }
 
-    deleteEmployee(id: number): Observable<void>{
+    deleteEmployee(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`)
     }
 }

@@ -1,13 +1,14 @@
-export interface Employee{
+export interface Employee {
     id: number
     name: string
     lastName: string
     position: string
     entryDate: string
     departmentName: string
+    departmentId: number
 }
 
-export interface EmployeeRequest{
+export interface EmployeeRequest {
     name: string
     lastName: string
     position: string

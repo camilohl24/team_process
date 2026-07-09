@@ -8,6 +8,7 @@ public class EmployeeResponseDto
     public string Position { get; set; } = null!;
     public DateTime EntryDate { get; set; }
     public string DepartmentName { get; set; } = null!;
+    public int DepartmentId { get; set; }
 }
 
 public class EmployeeRequestDto

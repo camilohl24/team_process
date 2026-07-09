@@ -88,7 +88,9 @@ public class EmployeeService
             LastName = employee.LastName,
             Position = employee.Position,
             EntryDate = employee.EntryDate,
-            DepartmentName = employee.Department.Name
+            DepartmentName = employee.Department.Name,
+            DepartmentId = employee.DepartmentId
+
         };
     }
 }

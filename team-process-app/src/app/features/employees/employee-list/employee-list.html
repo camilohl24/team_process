@@ -1,1 +1,138 @@
-<p>employee-list works!</p>
+<div class="p-6">
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <h1 class="text-2xl font-medium text-slate-800">Empleados</h1>
+      <p class="text-sm text-slate-500">{{ employees.length }} empleados registrados</p>
+    </div>
+    <div>
+      <button
+        (click)="openCreateModal()"
+        class="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 transition-colors"
+      >
+        <lucide-icon [img]="Plus" size="16"></lucide-icon> Nuevo Empleado
+      </button>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+    <table class="w-full">
+      <thead class="bg-slate-50 border-b border-slate-200">
+        <tr>
+          <th class="text-left text-xs text-slate-400 font-medium px-4 py-3">Nombre</th>
+          <th class="text-left text-xs text-slate-400 font-medium px-4 py-3">Cargo</th>
+          <th class="text-left text-xs text-slate-400 font-medium px-4 py-3">Departamento</th>
+          <th class="text-left text-xs text-slate-400 font-medium px-4 py-3">Fecha ingreso</th>
+          <th class="text-right text-xs text-slate-400 font-medium px-4 py-3">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (employee of employees; track employee.id) {
+          <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+            <td class="px-4 py-3 text-sm text-slate-800 font-medium">
+              {{ employee.name }} {{ employee.lastName }}
+            </td>
+            <td class="px-4 py-3 text-sm text-slate-800 font-medium">{{ employee.position }}</td>
+            <td class="px-4 py-3 text-sm text-slate-800 font-medium">
+              {{ employee.departmentName }}
+            </td>
+            <td class="px-4 py-3 text-sm text-slate-800 font-medium">
+              {{ employee.entryDate | date: 'dd/MM/yyyy' }}
+            </td>
+            <td class="px-4 py-3">
+              <div class="flex gap-2 justify-end">
+                <button
+                  (click)="openEditModal(employee)"
+                  class="p-2 rounded-lg bg-green-50 hover:bg-green-100 transition-colors"
+                >
+                  <lucide-icon [img]="Pencil" size="15" class="text-green-600"></lucide-icon>
+                </button>
+                <button
+                  (click)="deleteEmployee(employee.id)"
+                  class="p-2 rounded-lg bg-red-50 hover:bg-red-100 transition-colors"
+                >
+                  <lucide-icon [img]="Trash2" size="15" class="text-red-600"></lucide-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  @if (showModal) {
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-6 w-full max-w-md">
+        <h2 class="text-lg font-medium text-slate-800 mb-4">
+          {{ selectedEmployee ? 'Editar Empleado' : 'Nuevo Empleado' }}
+        </h2>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="mb-4 flex justify-between">
+            <div>
+              <label class="text-sm text-slate-600 block mb-1">Nombres</label>
+              <input
+                formControlName="name"
+                type="text"
+                placeholder="Ej: Jose Andres"
+                class="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-400"
+              />
+            </div>
+            <div>
+              <label class="text-sm text-slate-600 block mb-1">Apellido</label>
+              <input
+                formControlName="lastName"
+                type="text"
+                placeholder="Ej: Gomez Sanchez"
+                class="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-400"
+              />
+            </div>
+          </div>
+          <div class="mb-4 flex justify-between">
+            <div>
+              <label class="text-sm text-slate-600 block mb-1">Cargo</label>
+              <input
+                type="text"
+                formControlName="position"
+                class="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-400"
+              />
+            </div>
+            <div>
+              <label class="text-sm text-slate-600 block mb-1">Fecha de ingreso</label>
+              <input
+                type="date"
+                formControlName="entryDate"
+                class="border border-slate-200 rounded-lg w-full text-sm px-3 py-2 focus:outline-none focus:border-indigo-400"
+              />
+            </div>
+          </div>
+          <div>
+            <label class="text-sm text-slate-600 block mb-1">Departamento</label>
+            <select
+              formControlName="departmentId"
+              class="border border-slate-200 rounded-lg w-full px-3 py-2 text-sm focus:outline-none focus:border-indigo-400"
+            >
+              <option value="">Ingresa un departamento</option>
+              @for (department of departments; track department.id) {
+                <option value="{{ department.id }}">{{ department.name }}</option>
+              }
+            </select>
+          </div>
+          <div class="flex gap-2 justify-end py-6">
+            <button
+              type="button"
+              (click)="showModal = false"
+              class="px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="px-3 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
+            >
+              {{ selectedEmployee ? 'Actualizar' : 'Crear' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

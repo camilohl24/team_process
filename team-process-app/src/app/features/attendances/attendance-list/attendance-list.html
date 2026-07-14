@@ -1,1 +1,114 @@
-<p>attendance-list works!</p>
+<div class="p-6">
+  <div class="flex justify-between items-center mb-6 border-slate-400 border-b py-3">
+    <div>
+      <h1 class="text-2xl font-medium text-slate-800">Asistencias</h1>
+      <p class="text-sm text-slate-500">{{ attendances.length }} asistencias registradas</p>
+    </div>
+    <div>
+      <button
+        (click)="openCreateModal()"
+        class="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 transition-colors"
+      >
+        <lucide-icon [img]="Plus" size="16"></lucide-icon> Nueva asistencia
+      </button>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+    <table class="w-full">
+      <thead class="bg-slate-50 border border-slate-200">
+        <th class="text-left text-xs text-slate-400 font-medium px-4 py-3">Empleado</th>
+        <th class="text-left text-xs text-slate-400 font-medium px-4 py-3">Fecha</th>
+        <th class="text-left text-xs text-slate-400 font-medium px-4 py-3">Estado</th>
+        <th class="text-right text-xs text-slate-400 font-medium px-4 py-3">Acciones</th>
+      </thead>
+      <tbody>
+        @for (attendance of attendances; track attendance.id) {
+          <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+            <td class="px-4 py-3 text-sm text-slate-800 font-medium">
+              {{ attendance.employeeName }}
+            </td>
+            <td class="px-4 py-3 text-sm text-slate-800 font-medium">
+              {{ attendance.date | date: 'dd/MM/yyyy' }}
+            </td>
+            <td class="px-4 py-3 text-sm text-slate-800 font-medium">
+              {{ getStatusLabel(attendance.status) }}
+            </td>
+            <td>
+              <div class="flex gap-2 justify-end">
+                <button
+                  (click)="openEditAttendance(attendance)"
+                  class="p-2 rounded-lg bg-green-50 hover:bg-green-100 transition-colors"
+                >
+                  <lucide-icon [img]="Pencil" size="15" class="text-green-600"></lucide-icon>
+                </button>
+                <button
+                  (click)="deleteAttendance(attendance.id)"
+                  class="p-2 rounded-lg bg-red-50 hover:bg-red-100 transition-colors"
+                >
+                  <lucide-icon [img]="Trash2" size="15" class="text-red-600"></lucide-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  @if (showModal) {
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-6 w-full max-w-md">
+        <h2 class="text-slate-800 font-medium mb-4 text-lg">
+          {{ selectedAttendance ? 'Editar asistencia' : 'Nueva asistencia ' }}
+        </h2>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div>
+            <label class="text-sm text-slate-600 mb-1 block">Empleado</label>
+            <select
+              formControlName="employeeId"
+              class="border border-slate-200 rounded-lg w-full px-3 py-2 tetx-sm focus:outline-none focus:border-indigo-400"
+            >
+              @for (employee of employees; track employee.id) {
+                <option [value]="employee.id">{{ employee.name }} {{ employee.lastName }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <label class="text-sm text-slate-600 mb-1 block"> Fecha</label>
+            <input
+              type="date"
+              formControlName="date"
+              class="border border-slate-200 rounded-lg w-full px-3 py-2 text-sm focus:outline-none focus:border-indigo-400"
+            />
+          </div>
+          <div>
+            <label class="text-sm text-slate-600 mb-1 block">Estado</label>
+            <select
+              formControlName="status"
+              class="border border-slate-200 rounded-lg w-full px-3 py-2 tetx-sm focus:outline-none focus:border-indigo-400"
+            >
+              <option [value]="AttendanceStatus.Present">Presente</option>
+              <option [value]="AttendanceStatus.Absent">Ausente</option>
+              <option [value]="AttendanceStatus.Late">Tarde</option>
+            </select>
+          </div>
+          <div class="gap-2 flex justify-end py-6">
+            <button
+              type="button"
+              (click)="showModal = false"
+              class="px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="px-3 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
+            >
+              {{ selectedAttendance ? 'Actualizar' : 'Crear' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

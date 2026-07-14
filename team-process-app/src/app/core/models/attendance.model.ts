@@ -3,6 +3,7 @@ export interface Attendance{
     employeeName: string
     date: string
     status: AttendanceStatus
+    employeeId: number
 }
 
 export interface AttendanceRequest{

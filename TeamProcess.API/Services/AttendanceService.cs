@@ -80,7 +80,8 @@ public class AttendanceService
             Id = attendance.Id,
             EmployeeName = $"{attendance.Employee.Name} {attendance.Employee.LastName}",
             Date = attendance.Date,
-            Status = attendance.Status
+            Status = attendance.Status,
+            EmployeeId = attendance.EmployeeId
         };
     }
 }

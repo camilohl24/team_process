@@ -8,6 +8,8 @@ public class AttendanceResponseDto
     public string EmployeeName { get; set; } = null!;
     public DateTime Date { get; set; }
     public AttendanceStatus Status { get; set; }
+    public int EmployeeId { get; set; }
+
 }
 
 public class AttendanceRequestDto

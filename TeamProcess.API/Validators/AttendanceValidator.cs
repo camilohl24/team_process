@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
 using TeamProcess.API.DTOs;
+using TeamProcess.API.Models;
+
 namespace TeamProcess.API.Validators;
 
 public class AttendanceValidator : AbstractValidator<AttendanceRequestDto>
@@ -12,8 +14,7 @@ public class AttendanceValidator : AbstractValidator<AttendanceRequestDto>
             .NotEmpty().WithMessage("Date is required.")
             .LessThanOrEqualTo(DateTime.Now).WithMessage("Date cannot be in the future.");
         RuleFor(x => x.Status)
-            .NotEmpty().WithMessage("Status is required.")
-            .IsInEnum().WithMessage("Status must be a valid enum value.");
-
+            .Must(s => Enum.IsDefined(typeof(AttendanceStatus), s))
+            .WithMessage("Status must be a valid value.");
     }
 }

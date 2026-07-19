@@ -112,7 +112,6 @@ export class AttendanceList {
       date: attendance.date.split('T')[0],
       status: attendance.status,
     });
-    console.log('employeeId:', attendance.employeeId, typeof attendance.employeeId);
     this.showModal = true;
   }
 
